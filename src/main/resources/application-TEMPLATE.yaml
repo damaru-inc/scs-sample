@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    function:
+      definition: orderConsumer
+    stream:
+      binders:
+        #This section of the configuration tells the solace binder how to connect to the solace event broker/mesh
+        solace-broker:
+          type: solace
+          environment:
+            solace:
+              java:
+                host:
+                msgVpn:
+                clientUsername: solace-cloud-client
+                clientPassword:
+                connectRetries: 3
+                connectRetriesPerHost: 0
+                reconnectRetries: 3
+      bindings:
+        orderConsumer-in-0:
+          destination: orders/>
+          group: ordersGroup
+      solace:
+        bindings:
+          myConsumer-in-0:
+            consumer:
+              queue-access-type: 1
+
